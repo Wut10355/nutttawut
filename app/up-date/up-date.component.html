@@ -1,0 +1,15 @@
+<div class="form1">
+  <div class="row">
+    <dx-button class="button" (onClick)="backHome()" icon="back" >
+    </dx-button>
+  </div>
+  <!-- <img src={{emPloyee.Photo}}> -->
+  <dx-form  [formData]="sushiUpdate" colCount="1" >
+    <dxi-item dataField="id"></dxi-item>
+    <dxi-item dataField="sushiName"></dxi-item>
+    <dxi-item dataField="detail"></dxi-item>
+    <dxi-item dataField="price"></dxi-item>
+    <dxi-item class="button" itemType="button" [buttonOptions]="upDate" ></dxi-item>
+
+  </dx-form>
+</div>

@@ -1,0 +1,67 @@
+<div class="back">
+  <div class="flexlist">
+
+  </div>
+  <h2>SUSHI LIST</h2>
+  <div class="flex-zone">
+
+    <div class="widget-container flex-box">
+      <span class="center">Sushi Picture</span>
+      <div id="dropzone-external" class="flex-box" [ngClass]="
+        isDropZoneActive
+          ? ['dx-theme-accent-as-border-color', 'dropzone-active']
+          : ['dx-theme-border-color']
+      ">
+        <img id="dropzone-image" [src]="imageSource" (change)="onImageSelected($event)" *ngIf="imageSource" alt="" />
+        <div id="dropzone-text" class="flex-box" *ngIf="textVisible">
+        </div>
+        <dx-progress-bar #uploadProgress [min]="0" [max]="100" width="30%" [showStatus]="false"
+          [visible]="progressVisible" [value]="progressValue"></dx-progress-bar>
+      </div>
+      <dx-file-uploader #fileUploader dialogTrigger="#dropzone-external" dropZone="#dropzone-external"
+        [multiple]="false" [allowedFileExtensions]="['.jpg', '.jpeg', '.gif', '.png']" uploadMode="instantly"
+        uploadUrl="https://js.devexpress.com/Demos/NetCore/FileUploader/Upload" [visible]="false"
+        (onDropZoneEnter)="onDropZoneEnter($event)" (onDropZoneLeave)="onDropZoneLeave($event)"
+        (onUploaded)="onUploaded($event)" (onProgress)="onProgress($event)"></dx-file-uploader>
+    </div>
+    <div class="box">
+      <dx-form class="form" [formData]="sushi" width="100%">
+        <dxi-item dataField="Suhi Name">
+          <dxi-validation-rule type="required" message="กรุณากรอก username">
+          </dxi-validation-rule>
+        </dxi-item>
+        <dxi-item dataField="Detail"></dxi-item>
+        <dxi-item dataField="Price"></dxi-item>
+        <dxi-item itemType="button" [buttonOptions]="sumit"></dxi-item>
+        <!-- <dxi-item  itemType="button" [buttonOptions]="regisButton"></dxi-item> -->
+      </dx-form>
+
+    </div>
+
+  </div>
+
+</div>
+<div>
+
+</div>
+<dx-multi-view #multiview [selectedIndex]="0">
+  <dxi-item>
+    <dx-data-grid [dataSource]="sushiList" keyExpr="id" >
+      <dxi-column dataField="id"></dxi-column>
+      <dxi-column dataField="sushiName"></dxi-column>
+      <dxi-column dataField="detail">
+      </dxi-column>
+      <dxi-column dataField="price"></dxi-column>
+      <dxi-column cellTemplate="sushiList" alignment="center">
+        <div *dxTemplate="let sushis of 'sushiList'">
+          <dx-button text="edit" icon="edit" type="default" (onClick)="add(sushis)"></dx-button>
+
+        </div>
+      </dxi-column>
+
+    </dx-data-grid>
+  </dxi-item>
+  <dxi-item>
+    <app-up-date [sushiUpdate]="sushi" (back)="this.multiview.instance.option('selectedIndex', 0);"></app-up-date>
+  </dxi-item>
+</dx-multi-view>
